@@ -8,6 +8,8 @@ RUN apt-get update && \
     mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
     apt-mark hold libqt5svg5 && \
     apt-get install -y \
+      apt-utils && \
+    apt-get install -y \
       python \
       python-dev \
       python-pip \

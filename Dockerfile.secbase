@@ -3,10 +3,11 @@ WORKDIR /
 ENV DISPLAY :0
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Chicago
-COPY ./deps/libqt5svg5_5.9.5-0ubuntu1_amd64.deb .
+RUN mkdir -p /deps
+COPY ./deps/ /deps/
 RUN apt-get update && \
-    apt-get install ./libqt5svg5_5.9.5-0ubuntu1_amd64.deb -y && \
-    apt-get -yqqqm -m -f --allow-unauthenticated -o \
+    apt-get install ./deps/libqt5svg5_5.9.5-0ubuntu1_amd64.deb -y && \
+    apt-get -yqqqm -f --allow-unauthenticated -o \
       DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef" install \
       nmap \
       finger \
@@ -36,8 +37,25 @@ RUN apt-get update && \
       wapiti \ 
       python-impacket \ 
       whatweb \ 
+      xsltproc \
       medusa && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists && \
     true
+RUN apt-key adv --keyserver pool.sks-keyservers.net --recv-keys "ED444FF07D8D0BF6" && \
+    cp /etc/apt/sources.list /etc/apt/sources.list.orig && \
+    echo '# Kali linux repositories | Added by Katoolin\ndeb http://http.kali.org/kali kali-rolling main contrib non-free' >> /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y \
+      dnsmap \
+      wordlists \
+      metasploit-framework && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists && \
+    rm -f /etc/apt/sources.list && \
+    mv /etc/apt/sources.list.orig /etc/apt/sources.list && \
+    true
+RUN pip3 install -r ./deps/requirements.txt && \
+    chmod a+x ./deps/primeExploitDb.py && \
+    ./deps/primeExploitDb.py
 CMD ["python3"]
