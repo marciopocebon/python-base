@@ -1,0 +1,41 @@
+FROM gvit/python-base
+WORKDIR /
+ENV DISPLAY :0
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/Chicago
+RUN apt-get update && \
+    apt-get -yqqqm --allow-unauthenticated -o \
+      DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef" install \
+      nmap \
+      finger \
+      hydra \
+      nikto \
+      nbtscan \
+      nfs-common \
+      rpcbind \
+      smbclient \
+      sra-toolkit \
+      ldap-utils \
+      sslscan rwho \
+      x11-apps \
+      cutycapt \
+      leafpad \
+      xvfb \
+      imagemagick \
+      eog \
+      hping3 \
+      sqlmap \
+      libqt5core5a \
+      ruby \
+      perl \
+      urlscan \
+      libxslt-dev \
+      libgl1-mesa-glx \
+      wapiti \ 
+      python-impacket \ 
+      whatweb \ 
+      medusa && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists && \
+    true
+CMD 	["python3"]
