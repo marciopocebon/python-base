@@ -26,8 +26,10 @@ RUN apt-get update && \
       telnet \
       pandoc && \
     apt-get clean && \
+    python3 -m pip install setuptools --upgrade && \
+    python3 -m pip install service_identity --upgrade && \
     ## Fix library linkage
     ln -s libmariadb.so.3 /usr/lib/x86_64-linux-gnu/libmariadbclient.so.18 && \
     rm -rf /var/lib/apt/lists && \
     true
-CMD 	["python3"]
+CMD  ["python3"]
