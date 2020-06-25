@@ -6,6 +6,7 @@ ENV TZ=America/Chicago
 RUN apt-get update && \
     ## Postgres-cli install hack
     mkdir -p /usr/share/man/man1 /usr/share/man/man7 && \
+    apt-mark hold libqt5svg5 && \
     apt-get install -y \
       python \
       python-dev \
