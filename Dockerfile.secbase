@@ -3,8 +3,10 @@ WORKDIR /
 ENV DISPLAY :0
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Chicago
+COPY ./deps/libqt5svg5_5.9.5-0ubuntu1_amd64.deb .
 RUN apt-get update && \
-    apt-get -yqqqm --allow-unauthenticated -o \
+    apt-get install ./libqt5svg5_5.9.5-0ubuntu1_amd64.deb -y && \
+    apt-get -yqqqm -m -f --allow-unauthenticated -o \
       DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef" install \
       nmap \
       finger \
