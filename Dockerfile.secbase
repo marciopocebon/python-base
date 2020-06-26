@@ -11,6 +11,7 @@ RUN apt-get update && \
       DPkg::Options::="--force-overwrite" -o DPkg::Options::="--force-confdef" install \
       nmap \
       finger \
+      ftp \
       hydra \
       nikto \
       nbtscan \
@@ -26,6 +27,8 @@ RUN apt-get update && \
       xvfb \
       imagemagick \
       eog \
+      gnome-terminal \
+      xterm \
       hping3 \
       sqlmap \
       libqt5core5a \
@@ -38,7 +41,9 @@ RUN apt-get update && \
       python-impacket \ 
       whatweb \ 
       xsltproc \
-      medusa && \
+      netcat \
+      medusa \
+      firefox && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists && \
     true
@@ -47,6 +52,10 @@ RUN apt-key adv --keyserver pool.sks-keyservers.net --recv-keys "ED444FF07D8D0BF
     echo '# Kali linux repositories | Added by Katoolin\ndeb http://http.kali.org/kali kali-rolling main contrib non-free' >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y \
+      smtp-user-enum \
+      xserver-xephyr \
+      rdesktop \
+      xtightvncviewer \
       dnsmap \
       wordlists \
       metasploit-framework && \
